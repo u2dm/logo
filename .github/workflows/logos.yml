@@ -1,0 +1,52 @@
+name: Generate logos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+      - Makefile
+      - Dockerfile
+      - .github/workflows/logos.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  logos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            make \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            dvisvgm \
+            librsvg2-bin \
+            inkscape
+
+      - name: Build logos
+        run: make all
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: logos
+          path: dist/
+
+      - name: Publish to "logos" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create logos \
+            --title "Logos" \
+            --notes "Generated logo assets. Auto-updated by the Generate logos workflow." \
+            --latest \
+            2>/dev/null || true
+          gh release upload logos dist/* --clobber
