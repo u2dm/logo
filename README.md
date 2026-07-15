@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/u2dm/logo/releases/latest/download/logo-dark.svg">
-  <img src="https://github.com/u2dm/logo/releases/latest/download/logo.svg" alt="u2dm logo" width="200">
+  <source media="(prefers-color-scheme: dark)" srcset="https://u2dm.github.io/logo/logo-dark.svg">
+  <img src="https://u2dm.github.io/logo/logo.svg" alt="u2dm logo" width="200">
 </picture>
 
 # logo
@@ -13,13 +13,14 @@ The u2dm logo, rendered from LaTeX to SVG and PNG.
 
 ## Assets
 
-Each build produces three variants, in both SVG and PNG formats:
+Each build produces three variants, in both SVG and PNG formats, published to
+GitHub Pages at `https://u2dm.github.io/logo/<name>`:
 
 | Variant | Description | SVG | PNG |
 | --- | --- | --- | --- |
-| `logo` | Transparent background | [logo.svg](https://github.com/u2dm/logo/releases/latest/download/logo.svg) | [logo.png](https://github.com/u2dm/logo/releases/latest/download/logo.png) |
-| `logo-white` | White background | [logo-white.svg](https://github.com/u2dm/logo/releases/latest/download/logo-white.svg) | [logo-white.png](https://github.com/u2dm/logo/releases/latest/download/logo-white.png) |
-| `logo-dark` | White fill (for dark backgrounds) | [logo-dark.svg](https://github.com/u2dm/logo/releases/latest/download/logo-dark.svg) | [logo-dark.png](https://github.com/u2dm/logo/releases/latest/download/logo-dark.png) |
+| `logo` | Transparent background | [logo.svg](https://u2dm.github.io/logo/logo.svg) | [logo.png](https://u2dm.github.io/logo/logo.png) |
+| `logo-white` | White background | [logo-white.svg](https://u2dm.github.io/logo/logo-white.svg) | [logo-white.png](https://u2dm.github.io/logo/logo-white.png) |
+| `logo-dark` | White fill (for dark backgrounds) | [logo-dark.svg](https://u2dm.github.io/logo/logo-dark.svg) | [logo-dark.png](https://u2dm.github.io/logo/logo-dark.png) |
 
 ## License
 
