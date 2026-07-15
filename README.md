@@ -5,7 +5,7 @@
   <img src="https://u2dm.github.io/logo/logo.svg" alt="u2dm logo" width="200">
 </picture>
 
-# logo
+# u2dm logo
 
 The u2dm logo, rendered from LaTeX to SVG and PNG.
 
