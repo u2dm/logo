@@ -25,14 +25,13 @@ svg:
 	inkscape $(BUILD_DIR)/logo.raw.svg \
 		--actions="select-all:all;clone-unlink-recursively;export-area-drawing;export-margin:4;export-filename:$(DIST_DIR)/logo.svg;export-do"
 
-	perl -0777 -i -pe 'if (/viewBox="([-\d.]+) ([-\d.]+) ([-\d.]+) ([-\d.]+)"/){my($$x,$$y,$$w,$$h)=($$1,$$2,$$3,$$4);my $$s=$$w>$$h?$$w:$$h;my $$nx=$$x-($$s-$$w)/2;my $$ny=$$y-($$s-$$h)/2;s/viewBox="[^"]*"/sprintf("viewBox=\"%s %s %s %s\"",$$nx,$$ny,$$s,$$s)/e;s/width="[^"]*"/sprintf("width=\"%spt\"",$$s)/e;s/height="[^"]*"/sprintf("height=\"%spt\"",$$s)/e;}' \
-		$(DIST_DIR)/logo.svg
+	perl -i src/square-viewbox.pl $(DIST_DIR)/logo.svg
 
-	perl -0777 -pe 's/(<svg\b[^>]*>)/$$1\n  <rect x="-100%" y="-100%" width="300%" height="300%" fill="#ffffff"\/>/' \
-		$(DIST_DIR)/logo.svg > $(DIST_DIR)/logo-white.svg
+	cp $(DIST_DIR)/logo.svg $(DIST_DIR)/logo-white.svg
 
-	perl -0777 -pe 's/(<g\b)([^>]*\bid="page1")/$$1 fill="#ffffff"$$2/' \
-		$(DIST_DIR)/logo.svg > $(DIST_DIR)/logo-dark.svg
+	perl src/white-fill.pl $(DIST_DIR)/logo.svg > $(DIST_DIR)/logo-dark.svg
+
+	perl src/app-icon.pl $(DIST_DIR)/logo.svg > $(DIST_DIR)/logo-app.svg
 
 png: svg
 	rsvg-convert \
@@ -40,16 +39,17 @@ png: svg
 		--output $(DIST_DIR)/logo.png \
 		$(DIST_DIR)/logo.svg
 
-	rsvg-convert \
-		--width 1024 \
-		--background-color white \
-		--output $(DIST_DIR)/logo-white.png \
-		$(DIST_DIR)/logo.svg
+	cp $(DIST_DIR)/logo.png $(DIST_DIR)/logo-white.png
 
 	rsvg-convert \
 		--width 1024 \
 		--output $(DIST_DIR)/logo-dark.png \
 		$(DIST_DIR)/logo-dark.svg
+
+	rsvg-convert \
+		--width 1024 \
+		--output $(DIST_DIR)/logo-app.png \
+		$(DIST_DIR)/logo-app.svg
 
 clean:
 	rm -rf $(BUILD_DIR)
@@ -59,6 +59,8 @@ clean:
 	rm -f $(DIST_DIR)/logo-white.png
 	rm -f $(DIST_DIR)/logo-dark.svg
 	rm -f $(DIST_DIR)/logo-dark.png
+	rm -f $(DIST_DIR)/logo-app.svg
+	rm -f $(DIST_DIR)/logo-app.png
 
 podman:
 	mkdir -p $(DIST_DIR)
